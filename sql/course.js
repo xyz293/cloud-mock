@@ -57,7 +57,7 @@ module.exports = {
     },
     tag: (tag,id) => {
         return new Promise((resolve, reject) => {
-            db.query('select * from course where course_id = ? and college_name = ?',[id,tag], (err, result) => {
+            db.query('select * from course where id = ? and name = ?',[id,tag], (err, result) => {
                 if (err) {
                     reject(err);
                 } else {

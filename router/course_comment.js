@@ -11,7 +11,7 @@ router.get('/comment',async (req,res)=>{
             })
         }
         else{
-            const result = await Comment.getComment(id)
+            const result = await Comment.getCourseComment(id)
             res.send({
                 code:200,
                 msg:'获取成功',
@@ -19,6 +19,7 @@ router.get('/comment',async (req,res)=>{
             })
         }
     }catch(err){
+        console.log(err)
         res.send({
             code:500,
             msg:'获取失败',

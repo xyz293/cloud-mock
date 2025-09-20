@@ -26,12 +26,27 @@ const university = require('./router/university');
 const company = require('./router/company');
 const upload = require('./router/upload'); // 👈 你的分片上传路由
 const expert = require('./router/expert');
+const province = require('./router/province');
 const student = require('./router/student');
+const course_tag = require('./router/course_tag');
+const course_Center = require('./router/course_center');
+const verification = require('./router/verification');
+const company_tag = require('./router/company_tag');
+const course_comment = require('./router/course_comment');
+const school_category = require('./router/school_category');
 
 // 挂载所有业务路由
 app.use('/user', user);
+app.use('/course_Center', course_Center);
+app.use('/verification', verification);
+app.use('/course_tag', course_tag);
+app.use('/course_comment', course_comment);
+app.use('/course_content', course_content);
+app.use('/company_tag', company_tag);
 app.use('/course', course);
 app.use('/department', department);
+app.use('/province', province);
+app.use('/school_category', school_category);
 app.use('/expert', expert);
 app.use('/upload', upload); // 👈 这里是 /api/upload/chunk 等接口
 app.use('/student', student);

@@ -29,15 +29,15 @@ router.get('/courselist',async (req,res)=>{  //获取课程内容列表
 })
 router.get('/contentdetail',async (req,res)=>{
   try{
-    const {title} = req.query
-    if(!title){
+    const {courseId} = req.query
+    if(!courseId){
       res.send({
         code:400,
         msg:'参数错误',
       })
     }
     else{
-      const result = await course_content.getDetail_Content(title)
+      const result = await course_content.course_Content(courseId)
       res.send({
         code:200,
         msg:'获取成功',

@@ -1,8 +1,8 @@
 const db = require('./index')
 module.exports = {
-    getSchool_expert:(id)=>{
+    getSchool_expert:(id,department_id)=>{
         return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM expert WHERE school_id = ?', [id], (err, result) => {
+            db.query('SELECT * FROM expert WHERE school_id = ? and department_id = ?', [id,department_id], (err, result) => {
                 if (err) {
                     reject(err);
                 } else {

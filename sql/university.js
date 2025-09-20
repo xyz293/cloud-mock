@@ -60,4 +60,26 @@ module.exports = {
       })
     })
   },
+  tag: (tag) => {
+    return new Promise((resolve, reject) => {
+      db.query('select * from university where university_type like ?', ['%' + tag + '%'], (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      })
+    })
+  },
+  address: (address) => {
+    return new Promise((resolve, reject) => {
+      db.query('select * from university where address like ?', ['%' + address + '%'], (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      })
+    })
+  }
 }

@@ -85,6 +85,7 @@ router.post('/tag',async (req,res)=>{
             })
         }
     } catch (error) {
+        console.log(error)
         res.json({
             code: 400,
             msg: '查询失败'

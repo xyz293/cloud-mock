@@ -33,9 +33,9 @@ router.get('/specialization',async (req,res)=>{
         })
     }
 })
-router.get('/list',async (req,res)=>{
+router.get('/college',async (req,res)=>{
     try{
-        const {id} = req.query
+        const {id,department_id} = req.query
         if(!id){
             res.send({
                 code:400,
@@ -43,7 +43,7 @@ router.get('/list',async (req,res)=>{
             })
         }
         else{
-            const result = await expert.getSchool_expert(id)
+            const result = await expert.getSchool_expert(id,department_id)
             if(result){
                 res.send({
                     code:200,

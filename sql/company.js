@@ -46,7 +46,7 @@ module.exports = {
     },
     tag: (tag) => {
         return new Promise((resolve, reject) => {
-            db.query('select * from company where industry ?', [tag], (err, result) => {
+            db.query('select * from company where industry like ?', ['%' + tag + '%'], (err, result) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -77,4 +77,15 @@ module.exports = {
             })
         })
     },
+    getDetail: (id) => {
+        return new Promise((resolve, reject) => {
+            db.query('select * from company where id = ?', [id], (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result[0]);
+                }
+            })
+        })
+    }
 }

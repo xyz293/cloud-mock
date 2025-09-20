@@ -139,6 +139,7 @@ router.get('/tag',async (req,res)=>{
             })
         }
     } catch (error) {
+        console.log(error);
         res.json({
             code: 400,
             msg: '查询失败'
@@ -178,6 +179,36 @@ router.post('/search',async (req,res)=>{
 router.get('/getAll',async (req,res)=>{
     try {
         const result = await Company.getAll();
+        if(!result){
+            res.json({
+                code: 400,
+                msg: '查询失败'
+            })
+        }
+        else {
+            res.json({
+                code: 200,
+                msg: '查询成功',
+                data: result
+            })
+        }
+    } catch (error) {
+        res.json({
+            code: 400,
+            msg: '查询失败'
+        })
+    }
+})
+router.get('/detail',async (req,res)=>{
+    try {
+        const {id} = req.query;
+        if(!id){
+            res.json({
+                msg: '参数错误',
+                code:400
+            })
+        }
+        const result = await Company.getDetail(id);
         if(!result){
             res.json({
                 code: 400,

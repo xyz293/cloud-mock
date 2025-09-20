@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const university = require('../sql/university');
-router.get('/university',async (req,res)=>{
+router.get('/getlist',async (req,res)=>{
     try {
-        const result = await university.getCollegeAll(id);
+        const result = await university.getCollegeAll();
         if(!result){
             res.json({
                 code: 400,
@@ -99,6 +99,70 @@ router.delete('/university/:id',async (req,res)=>{
         res.json({
             code: 400,
             msg: '删除失败'
+        })
+    }
+})
+router.get('/tag',async (req,res)=>{
+    try {
+        const {tag} = req.query;
+        if(!tag){
+            res.json({
+                code: 400,
+                msg: '参数错误'
+            })
+        }
+        else {
+            const result = await university.tag(tag);
+            if(!result){
+                res.json({
+                    code: 400,
+                    msg: '查询失败'
+                })
+            }
+            else {
+                res.json({
+                    code: 200,
+                    msg: '查询成功',
+                    data: result
+                })
+            }
+        }
+    } catch (error) {
+        res.json({
+            code: 400,
+            msg: '查询失败'
+        })
+    }
+})
+router.get('/address',async (req,res)=>{
+    try {
+        const {address} = req.query;
+        if(!address){
+            res.json({
+                code: 400,
+                msg: '参数错误'
+            })
+        }
+        else {
+            const result = await university.address(address);
+            if(!result){
+                res.json({
+                    code: 400,
+                    msg: '查询失败'
+                })
+            }
+            else {
+                res.json({
+                    code: 200,
+                    msg: '查询成功',
+                    data: result
+                })
+            }
+        }
+    } catch (error) {
+        res.json({
+            code: 400,
+            msg: '查询失败'
         })
     }
 })
