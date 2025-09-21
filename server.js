@@ -14,6 +14,7 @@ app.use(cors());
 // 路由导入
 const comment = require('./router/course_comment');
 const user = require('./router/user');
+const policy = require('./router/policy');
 const department = require('./router/department');
 const job = require('./router/job');
 const application = require('./router/application');
@@ -32,17 +33,24 @@ const course_tag = require('./router/course_tag');
 const course_Center = require('./router/course_center');
 const verification = require('./router/verification');
 const company_tag = require('./router/company_tag');
+const tags = require('./router/tags');
+const product = require('./router/product');
+const news = require('./router/news');
 const course_comment = require('./router/course_comment');
 const school_category = require('./router/school_category');
 
 // 挂载所有业务路由
 app.use('/user', user);
+app.use('/news', news);
 app.use('/course_Center', course_Center);
 app.use('/verification', verification);
 app.use('/course_tag', course_tag);
 app.use('/course_comment', course_comment);
+app.use('/tags', tags);
 app.use('/course_content', course_content);
 app.use('/company_tag', company_tag);
+app.use('/policy', policy);
+app.use('/product', product);
 app.use('/course', course);
 app.use('/department', department);
 app.use('/province', province);

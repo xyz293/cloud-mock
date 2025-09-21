@@ -133,4 +133,31 @@ router.put('/updateDepartment',async (req, res) => {
         })
     }
 })
+router.get('/getDepartmentByCompanyId',async (req, res) => {
+    try{
+        const {id,company_id} = req.query
+        console.log(id,company_id)
+        const result = await department.getDpartmentDetail(id,company_id)
+        console.log(result)
+        if(result.length == 0){
+            res.send({
+                code: 400,
+                msg: '部门不存在'
+            })
+        }
+        else {
+            res.send({
+                code: 200,
+                msg: '查询成功',
+                data: result
+            })
+        }
+    }
+    catch(err){
+        res.send({
+            code: 500,
+            msg: '查询失败'
+        })
+    }
+})
 module.exports = router

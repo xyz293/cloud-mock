@@ -44,4 +44,15 @@ module.exports ={
             })
         })
     },
+    getDpartmentDetail: (id,company_id) => {
+        return new Promise((resolve, reject) => {
+            db.query('select * from department where id = ? and company_id = ?', [id,company_id], (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result[0]);
+                }
+            })
+        })
+    }
 }

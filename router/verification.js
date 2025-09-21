@@ -39,6 +39,7 @@ router.post('/verification',async (req,res)=>{
                 msg: '参数错误',
                 code:400
             })
+            return;
         }
         const result = await verification.verification(student_id,student_name,university_name,college_name,grade);
         console.log(result)
