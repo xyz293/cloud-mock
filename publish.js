@@ -1,3 +1,3 @@
 import {show} from './main'
 show()
-console.log(aaaa)
+console.log(aaaaa)
