@@ -49,7 +49,7 @@ router.post('/product_search',async (req, res) => {
                 msg: '参数错误'
             })
         }
-        const result = await product.product_search(keyword)
+        const result = await product.search_product(keyword)
         res.send({
             code: 200,
             msg: '查询成功',
@@ -57,6 +57,7 @@ router.post('/product_search',async (req, res) => {
         })
     }
     catch(err){
+        console.log(err)
         res.send({
             code: 500,
             msg: '查询失败'
@@ -65,14 +66,8 @@ router.post('/product_search',async (req, res) => {
 })
 router.post('/select_tags',async (req, res) => {
     try{
-        const {category,brand,color,rating,price} = req.body
-        if(!category && !brand && !color && !rating && !price){
-            res.json({
-                code: 400,
-                msg: '参数错误'
-            })
-        }
-        const result = await product.tags(category,brand,color,rating,price)
+        const {category,brand,color,rating,pricemin,pricemax} = req.body
+        const result = await product.tags(category,brand,color,rating,pricemin,pricemax)
         res.send({
             code: 200,
             msg: '查询成功',
@@ -80,6 +75,7 @@ router.post('/select_tags',async (req, res) => {
         })
     }
     catch(err){
+        console.log(err)
         res.send({
             code: 500,
             msg: '查询失败'

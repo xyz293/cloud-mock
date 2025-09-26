@@ -72,13 +72,14 @@ router.get('/comment',async (req,res)=>{
             })
             return
         }
-        const list = await policies.get_comment(id)
+        const list = await policies.get_comments(id)
         res.json({
             code:200,
             data:list
         })
     }
     catch(err){
+        console.log(err)
         res.json({
             code:500,
             msg:err.message
@@ -88,7 +89,7 @@ router.get('/comment',async (req,res)=>{
 router.post('/like',async (req,res)=>{
     try{
         const {id,policy_id} = req.body
-        if(!id || !policy_id || !user_name){
+        if(!id || !policy_id){
             res.json({
                 code:400,
                 msg:'id或user_name不能为空'
@@ -102,6 +103,7 @@ router.post('/like',async (req,res)=>{
         })
     }
     catch(err){
+        console.log(err)
         res.json({
             code:500,
             msg:err.message
@@ -111,7 +113,7 @@ router.post('/like',async (req,res)=>{
 router.post('/addcomment',async (req,res)=>{
     try{
         const {policy_id,user_name,content,like_count} = req.body
-        if(!id || !policy_id || !user_name || !content){
+        if( !policy_id || !user_name || !content){
             res.json({
                 code:400,
                 msg:'id或policy_id或user_name或content不能为空'
@@ -125,6 +127,7 @@ router.post('/addcomment',async (req,res)=>{
         })
     }
     catch(err){
+        console.log(err)
         res.json({
             code:500,
             msg:err.message

@@ -19,7 +19,7 @@ module.exports ={
                     reject(err)
                 }
                 else{
-                    resolve(result)
+                    resolve(result[0])
                 }
             })
         })
@@ -38,7 +38,7 @@ module.exports ={
     },
     get_comments:(id)=>{
         return new Promise((resolve,reject)=>{
-            db.query('select * from policies_comments where policy_id = ?',[id],(err,result)=>{
+            db.query('select * from policy_comments where policy_id = ?',[id],(err,result)=>{
                 if(err){
                     reject(err)
                 }
@@ -50,7 +50,7 @@ module.exports ={
     },
     like_count:(id,policy_id)=>{
         return new Promise((resolve,reject)=>{
-            db.query('update policies_comments set like_count = like_count + 1 where id = ? and policy_id =?',[id,policy_id],(err,result)=>{
+            db.query('update policy_comments set like_count = like_count + 1 where id = ? and policy_id =?',[id,policy_id],(err,result)=>{
                 if(err){
                     reject(err)
                 }
@@ -62,7 +62,7 @@ module.exports ={
     },
     add_comment:(policy_id,user_name,content,like_count)=>{
         return new Promise((resolve,reject)=>{
-            db.query('insert into policies_comments (policy_id,user_name,content,like_count,create_time) values (?,?,?,?,now())',[policy_id,user_name,content,like_count],(err,result)=>{
+            db.query('insert into policy_comments (policy_id,user_name,content,like_count,create_time) values (?,?,?,?,now())',[policy_id,user_name,content,like_count],(err,result)=>{
                 if(err){
                     reject(err)
                 }

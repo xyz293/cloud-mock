@@ -15,6 +15,7 @@ app.use(cors());
 const comment = require('./router/course_comment');
 const user = require('./router/user');
 const policy = require('./router/policy');
+const center = require('./router/person_center');
 const department = require('./router/department');
 const job = require('./router/job');
 const application = require('./router/application');
@@ -60,6 +61,7 @@ app.use('/upload', upload); // 👈 这里是 /api/upload/chunk 等接口
 app.use('/student', student);
 app.use('/job', job);
 app.use('/patent', patent);
+app.use('/center', center);
 app.use('/application', application);
 app.use('/university', university);
 app.use('/company', company);

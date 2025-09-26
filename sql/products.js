@@ -24,7 +24,7 @@ module.exports= {
     },
     search_product: (key)=>{
         return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM products WHERE name LIKE ? or category like? or description ?like  ', ['%' + key + '%','%' + key + '%','%' + key + '%'], (err, result) => {
+            db.query('SELECT * FROM products WHERE name LIKE ? or category like? or description like ? or brand like ?', ['%' + key + '%','%' + key + '%','%' + key + '%','%' + key + '%'], (err, result) => {
                 if (err) {
                     reject(err)
                 } else {
@@ -33,15 +33,25 @@ module.exports= {
             })
         })
     },
-    tags: (category,brand,color,rating,price)=>{
-        return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM products where category =? or brand =? or color =?  or rating  =? or price =?',[category,brand,color,rating,price], (err, result) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    resolve(result)
-                }
-            })
-        })
-    }
+   tags: (category, brand, color, rating, pricemain,pricemax) => {
+    console.log( brand)
+  return new Promise((resolve, reject) => {
+    const sql = `
+      SELECT * 
+      FROM products 
+      WHERE (category = ? OR brand = ? OR color = ? OR rating = ?)
+        or price BETWEEN ? AND ?
+    `;
+    const params = [category, brand, color, rating, pricemain,pricemax];
+
+    db.query(sql, params, (err, result) => {
+      if (err) reject(err);
+      else {
+        console.log(result)
+        resolve(result);
+      }
+    });
+  });
+}
+
 }
