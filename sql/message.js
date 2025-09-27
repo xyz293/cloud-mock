@@ -34,5 +34,15 @@ module.exports = {
                 resolve(result)
             })
         })
+    },
+    updateStatus:(id)=>{
+        return new Promise((resolve,reject)=>{
+            db.query('UPDATE messages SET status = ? WHERE id = ?',['read',id],(err,result)=>{
+                if(err){
+                    reject(err)
+                }
+                resolve(result)
+            })
+        })
     }
 }

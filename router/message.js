@@ -20,4 +20,13 @@ router.get('/getDetail/:sendid/:receiveid',async (req,res)=>{
     const result = await message.getDetail(sendid,receiveid)
     res.json(result)
 })
+router.post('/updateStatus/:id',async (req,res)=>{
+    try {
+        const id = req.params.id
+        const result = await message.updateStatus(id)
+        res.json(result)
+    } catch (error) {
+        res.json({success:false,msg:'更新失败'})
+    }
+})
 module.exports = router
