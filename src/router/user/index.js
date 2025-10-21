@@ -1,6 +1,7 @@
 import express from 'express';
 import {getToken} from '../../middle/getToken.js'
 import userController from '../../sql/user/index.js';
+import {verifyToken} from '../../middle/versity.js'
 const router = express.Router();
 router.get('/getCode', async (req, res) => {
     try {
@@ -49,6 +50,15 @@ router.post('/sign', async (req, res) => {
         res.json({ message: result ,code:200});
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
+    }
+})
+router.post('/verify', verifyToken,async (req, res) => {
+    try {
+        console.log(11);
+        res.json({ message: '验证成功' ,code:200});
+    } catch (error) {
+        console.log(error);
+        res.status(401).json({ message: 'Internal server error' });
     }
 })
 export default router;

@@ -92,7 +92,7 @@ router.delete('/delmessage',async (req,res)=>{
         res.status(500).json({ message: 'Internal server error' });
     }
 })
-router.post('/AIchat',verifyToken,async (req,res)=>{
+router.post('/AIchat',async (req,res)=>{
     try {
        const {content,id}=req.body;
         await messageController.SaveMessage(id,'user',content);
@@ -118,12 +118,12 @@ router.post('/AIchat',verifyToken,async (req,res)=>{
 })
 router.post('/AImessage',async (req,res)=>{
     try {
-       const {user_id}=req.body;
+       const {user_id,time}=req.body;
        if(!user_id ){
         res.status(400).json({ message: 'user_id is required' });
        }
        else{
-        const result=await messageController.Aimessage(user_id);
+        const result=await messageController.Aimessage(user_id,time);
         res.json(result);
        }
     } catch (error) {
