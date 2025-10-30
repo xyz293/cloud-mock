@@ -60,4 +60,40 @@ router.post('/join', async(req,res)=>{
         })
     }
 })
+router.get('/honor', async(req,res)=>{
+    try{
+        const {user_id,type} = req.query
+        const result = await activityController.getHoror(user_id,type)
+        res.json({
+            code:200,
+            message:'获取成功',
+            data:result
+        })
+    }
+    catch(err){
+        res.json({
+            code:500,
+            message:'获取失败',
+            data:err
+        })
+    }
+})
+router.get('/joinactivity', async(req,res)=>{
+    try{
+        const {user_id} = req.query
+        const result = await activityController.getJoinActivity(user_id)
+        res.json({
+            code:200,
+            message:'获取成功',
+            data:result
+        })
+    }
+    catch(err){
+        res.json({
+            code:500,
+            message:'获取失败',
+            data:err
+        })
+    }
+})
 export default router

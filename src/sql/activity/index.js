@@ -49,7 +49,17 @@ const activityController = {
           }
         });
       });
-   }
-
+   },
+   getHoror: (user_id,type)=>{  //type 2为比赛
+           return new Promise((resolve, reject) => {
+               db.query('SELECT * FROM honor WHERE userID = ? or type=?', [user_id,type], (err, results) => {
+                   if (err) {
+                       reject(err);
+                   } else {
+                       resolve(results);
+                   }
+               })
+           })
+       }
 }
 export default activityController

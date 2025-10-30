@@ -1,6 +1,6 @@
 import express from 'express';
 import AiChat from '../../middle/agent.js';
-import {verifyToken } from '../../middle/versity.js';
+import {verifyaccessToken} from '../../middle/versity.js';
 import messageController from '../../sql/message/index.js';
 const router = express.Router();
 const client={}
@@ -57,7 +57,7 @@ router.get('/messagelist/:id',async (req,res)=>{
 router.get('/messageunlist/:id',async (req,res)=>{
     try {
         const {id}=req.params;
-        const {message_id}=req.body;
+       
         const result=await messageController.getUnread(id);
         res.json(result);
     } catch (error) {
@@ -127,6 +127,22 @@ router.post('/AImessage',async (req,res)=>{
         res.json(result);
        }
     } catch (error) {
+        res.status(500).json({ message: 'Internal server error' });
+    }
+})
+router.post('/clientMessage',async (req,res)=>{
+    try {
+       const {id}=req.body;
+       console.log(client[id]);
+        const result=await messageController.getUnread(id);
+        client[id].write(`data: ${result}\n\n`);
+        res.json({
+            success:true,
+            message:'获取成功',
+            data:result
+        })
+    } catch (error) {
+        console.log(error);
         res.status(500).json({ message: 'Internal server error' });
     }
 })

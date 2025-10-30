@@ -60,6 +60,17 @@ const userController = {
             });
         })
     },
+    Finduser :(id)=>{
+        return new Promise((resolve, reject) => {
+            db.query('select * from users where id = ?', [id], (err, results) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(results[0]);
+                }
+            })
+        })
+    }
 
 }
 export default userController;

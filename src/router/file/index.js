@@ -7,7 +7,6 @@ import fs from 'fs';
 const router = express.Router();
 const uploadDir = path.resolve(process.cwd(), 'upload');
 const fileDir = path.resolve(uploadDir, 'file');
-
 router.post('/upload', (req, res) => {
   const form = new multi.Form();
  console.log('uploadDir:', uploadDir);
@@ -32,9 +31,12 @@ router.post('/upload', (req, res) => {
 
       const filePath = path.resolve(hashChunkDir, chunk);
 
-      // 移动分片到目标目录
-      fs.renameSync(files.file[0].path, filePath);
-
+     if(!fs.existsSync(filePath)){
+         fs.renameSync(files.file[0].path, filePath);
+     }
+     else {
+      res.send({message:'ok'})
+     }
       res.send({ code: 0, message: 'Chunk uploaded successfully' });
     } catch (err) {
       console.error('Error saving chunk:', err);

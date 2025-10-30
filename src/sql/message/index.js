@@ -2,7 +2,7 @@ import db from '../index.js';
 const messageController = {
    getUnread : (user_id)=>{
       return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM user_msg WHERE user_id= ? AND read = 0', [user_id], (err, results) => {
+        db.query('SELECT * FROM user_msg WHERE user_id= ? AND `read` = 0', [user_id], (err, results) => {
           if (err) {
             reject(err);
           } else {
