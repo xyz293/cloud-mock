@@ -45,6 +45,16 @@ router.post('/upload', (req, res) => {
   });
 });
 
+router.post('/verity',async (req,res)=>{
+    const {fileName} = req.body;
+    const filepath =path.resolve(fileDir, fileName);
+    if(fs.existsSync(filepath)){
+        return res.json({ code: 400, message: '文件已存在' });
+    }
+    else {
+      res.json({ code: 200, message: '文件不存在' });
+    }
+})
 router.post('/merge', async (req, res) => {
     const { hash, fileName } = req.body;
     const hashChunkDir = path.resolve(uploadDir, hash);
