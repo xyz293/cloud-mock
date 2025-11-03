@@ -64,7 +64,23 @@ const ProductController = {
         });
     },
     Createdeliver: (user_id,user_nickname,address,phone,postcode) => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve,reject)=>{
+            db.query('INSERT INTO deliver SET ?', [{
+                user_id,
+                user_nickname,
+                address,
+                phone,
+                postcode,
+                create_time: new Date(),
+                update_time: new Date()
+            }], (err, results) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(results);
+                }
+            });
+        })
           
     },
     getmyorder: (user_id) => {
