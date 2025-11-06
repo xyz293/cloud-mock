@@ -21,7 +21,7 @@ router.post('/upload', (req, res) => {
 
     try {
       const hash = fields.hash[0];      // 文件总 hash
-      const chunk = fields.chunkHash[0];    // 当前分片编号
+      const chunk = fields.index[0];    // 当前分片编号
       const hashChunkDir = path.resolve(uploadDir, hash);
 
       // 确保目录存在
@@ -44,7 +44,22 @@ router.post('/upload', (req, res) => {
     }
   });
 });
-
+router.get('/checkchunk',(req,res)=>{
+    try{
+      const {hash} =req.query;
+    const hashChunkDir = path.resolve(uploadDir, hash);
+    const chunkFiles = fs.readdirSync(hashChunkDir);
+    let chunks =[]
+    for( let item of chunkFiles){
+      chunks.push(parseInt(item))
+    }
+    
+    res.json({ code: 0,chunkFiles: chunkFiles});
+    }
+    catch(err){
+      res.status(500).send('Error checking chunk');
+    }
+})
 router.post('/verity',async (req,res)=>{
     const {fileName} = req.body;
     const filepath =path.resolve(fileDir, fileName);
@@ -82,8 +97,10 @@ router.post('/merge', async (req, res) => {
     }
 
     writeStream.end(); // 所有分片写完后关闭流
-
-    res.json({ code: 0, message: '文件合并完成' });
+    const context =fs.readFileSync(finalFilePath);
+    fs.unlinkSync(finalFilePath);
+    res.json({ code: 0, message: '文件合并完成',context:context.toString() });
+    
 });
 
 
